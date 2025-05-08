@@ -1,0 +1,236 @@
+// ImageJ: Batch Image Merge
+  // For 2-4 channels, this macro will merge, color, adjust brightness/contrast (optional), scale, flatten (optional), and save images
+
+// File organization:
+  // Parent folders > Subfolders > Images
+  // Example:
+    // 2809_Left                                           (parent folder)
+      // 2809.L.1                                           (subfolder)
+        // 2809.L.1_DAPI_20x_Lepper_Zeiss_22.4.11            (Channel 1)
+        // 2809.L.1_488.Laminin_20x_Lepper_Zeiss_22.4.11     (Channel 2)
+        // 2809.L.1_568.Pax7_20x_Lepper_Zeiss_22.4.11        (Channel 3)
+        // 2809.L.1_Cy5.EdU_20x_Lepper_Zeiss_22.4.11         (Channel 4)
+      // 2809.L.2                                           (subfolder)
+        // 2809.L.2_DAPI_20x_Lepper_Zeiss_22.4.11            (Channel 1)
+        // 2809.L.2_488.Laminin_20x_Lepper_Zeiss_22.4.11     (Channel 2)
+        // 2809.L.2_568.Pax7_20x_Lepper_Zeiss_22.4.11        (Channel 3)
+        // 2809.L.2_Cy5.EdU_20x_Lepper_Zeiss_22.4.11         (Channel 4)
+
+// Copy and paste code below into the macro window:
+
+// ====================================================================================================================
+// =============================================== Configure Variables ================================================
+// ===================== Adjust the code in this section to match the details of your experiment ======================
+// ====================================================================================================================
+
+  // Activate batch mode
+    // This will prevent the GUI from showing the images opening, processing, and closing. 
+      // This is especially useful for individuals with sensitivity to flashing lights. See the Log window for progress while the macro is running.
+
+setBatchMode(true);  
+
+// ====================================================================================================================
+  // EDIT: Set the pathway to the parent folder containing subfolders
+    // Make sure the pathway is enclosed with double quotes and a semicolon at the end of the line!
+      // Example: parentFolder = "/pathway/to/my/parentFolder";
+
+parentFolder = "/Volumes/LEPPERLAB/Med12/Quantification/Myosin Quantification/BF-F3_SC-71/4905";
+
+// ====================================================================================================================
+  // EDIT: Include/exclude channel 3/4 - exchange "//" to the line that will be *ignored* by the code
+    // If one or both of these = false, anything to do with CH3 or CH4 beyond this section will be ignored- no need to comment any further code out
+
+IncludeCH3 = true;                         // Include Channel 3
+// IncludeCH3 = false;                     // Exclude channel 3
+
+IncludeCH4 = true;                         // Include Channel 4
+// IncludeCH4 = false;                     // Exclude channel 4
+
+// ====================================================================================================================
+  // EDIT: Set unique text labels for each channel - Replace the text between quotes with unique text contained only in the file name of each individual channel
+    // Make sure unique text is enclosed in double quotes and the line ends with a semicolon!
+    // Channel 1/2/3/4 will be called CH1/2/3/4 throughout the code, so make sure this is consistent as you're setting your variables
+
+CH1Tag = “DAPI”;                           // Channel 1
+CH2Tag = “Laminin”;                        // Channel 2 
+CH3Tag = “Pax7”;                           // Channel 3 (if applicable, ignore of no CH3)
+CH4Tag = “EdU”;                            // Channel 4 (if applicable, ignore of no CH4)
+
+// ====================================================================================================================
+  // EDIT: Set color of each channel (1 = red; 2 = green; 3 = blue; 4 = grey; 5 = cyan; 6 = magenta; 7 = yellow)
+
+CH1_channelColor = 3;                 // Set color of channel 1
+CH2_channelColor = 2;                 // Set color of channel 2
+CH3_channelColor = 1;                 // Set color of channel 3 (if applicable, ignore of no CH3)
+CH4_channelColor = 5;                 // Set color of channel 4 (if applicable, ignore of no CH4)
+
+// ====================================================================================================================
+  // EDIT: Set brightness/contrast adjustment method and values
+    // “true” for automatic brightness/contrast (will be different for each image and channel)
+    // “false” to manually set brightness and contrast to a stationary value 
+    // For no brightness/contrast adjustment:
+      // 8-bit: 0-255
+      // 16-bit: 0-65,535
+
+// AutoBrightContrast = true;
+AutoBrightContrast = false;
+
+bcCH1Min = 0;                        // Set min value of channel 1
+bcCH1Max = 255;                      // Set max value of channel 1
+
+bcCH2Min = 0;                        // Set min value of channel 2
+bcCH2Max = 255;                      // Set max value of channel 2
+
+bcCH3Min = 0;                        // Set min value of channel 3 (if applicable, ignore of no CH3)
+bcCH3Max = 255;                      // Set max value of channel 3 (if applicable, ignore of no CH3)
+
+bcCH4Min = 0;                        // Set min value of channel 4 (if applicable, ignore of no CH4)
+bcCH4Max = 255;                      // Set max value of channel 4 (if applicable, ignore of no CH4)
+
+// ====================================================================================================================
+  // EDIT: Set scales according to the microscope. See Microscope Scales document for scale info of some scopes
+    // Pixel aspect ratio is set to 1.0 by default
+
+ScaleDistance = 1300;                // Distance in Pixels 
+ScaleKnown = 435;                    // Known Distance 
+ScaleUnit = "um";                    // Unit of Length
+Magnification = “20x”;               // Magnification of the image
+Microscope = “Lepper_Zeiss”          // Microscope 
+
+// ====================================================================================================================
+  // EDIT: Flatten the image from three layers into one RGB layer
+    // Do not flatten for quantifications in QuPath!
+
+// Flatten = true;                         // Flatten
+Flatten = false;                         // Do not flatten
+
+// ====================================================================================================================
+// =========================================== Run Macro to process images ============================================
+// ===================================== DO NOT change any code in this section! ======================================
+// ====================================================================================================================
+
+  // Get a list of all subfolders
+
+subfolders = getFileList(parentFolder);
+
+for (sf = 0; sf < subfolders.length; sf++) {
+    inputFolder = parentFolder + "/" + subfolders[sf];
+    if (!File.isDirectory(inputFolder)) continue;
+    print("Processing folder: " + inputFolder);
+
+CH3File = "";
+CH2File = "";
+CH1File = "";
+CH4File = "";
+
+// ====================================================================================================================
+  // Match files using dynamic tags
+
+fileList = getFileList(inputFolder);
+  for (i = 0; i < fileList.length; i++) {
+    filePath = inputFolder + "/" + fileList[i];
+    if (IncludeCH4 && indexOf(fileList[i], CH4Tag) != -1) CH4File = filePath;
+    if (IncludeCH3 && indexOf(fileList[i], CH3Tag) != -1) CH3File = filePath;
+    else if (indexOf(fileList[i], CH2Tag) != -1) CH2File = filePath;
+    else if (indexOf(fileList[i], CH1Tag) != -1) CH1File = filePath;
+  }
+
+print("Match files to dynamic tags");
+
+// ====================================================================================================================
+  // Open files and rename channels
+
+if (CH4File != "") { open(CH4File); rename("C" + CH4_channelColor); }
+if (CH3File != "") { open(CH3File); rename("C" + CH3_channelColor); }
+if (CH2File != "") { open(CH2File); rename("C" + CH2_channelColor); }
+if (CH1File != "") { open(CH1File); rename("C" + CH1_channelColor); }
+
+print("Open files and rename channels");
+
+// ====================================================================================================================
+  // Merge channels
+
+mergeCommand = "create";
+  if (CH1File != "") mergeCommand += " c" + CH1_channelColor + "=C" + CH1_channelColor;
+  if (CH2File != "") mergeCommand += " c" + CH2_channelColor + "=C" + CH2_channelColor;
+  if (CH3File != "") mergeCommand += " c" + CH3_channelColor + "=C" + CH3_channelColor;
+  if (CH4File != "") mergeCommand += " c" + CH4_channelColor + "=C" + CH4_channelColor;
+run("Merge Channels...", mergeCommand);
+
+print("Merge Channels");
+
+// ====================================================================================================================
+  // Set brightness/contrast by channel
+
+if (IncludeCH4 && CH4File != "") {
+  Stack.setChannel(CH4_channelColor);
+    if (AutoBrightContrast) {
+      run("Enhance Contrast", "saturated=0.35");
+    } else {
+      setMinAndMax(bcCH4Min, bcCH4Max);
+    }
+}
+if (IncludeCH3 && CH3File != "") {
+  Stack.setChannel(CH3_channelColor);
+    if (AutoBrightContrast) {
+      run("Enhance Contrast", "saturated=0.35");
+    } else {
+      setMinAndMax(bcCH3Min, bcCH3Max);
+    }
+}
+if (CH2File != "") {
+  Stack.setChannel(CH2_channelColor);
+    if (AutoBrightContrast) {
+      run("Enhance Contrast", "saturated=0.35");
+    } else {
+      setMinAndMax(bcCH2Min, bcCH2Max);
+    }
+}
+if (CH1File != "") {
+  Stack.setChannel(CH1_channelColor);
+    if (AutoBrightContrast) {
+      run("Enhance Contrast", "saturated=0.35");
+    } else {
+      setMinAndMax(bcCH1Min, bcCH1Max);
+    }
+}
+
+print("Brightness and Contrast");
+
+selectImage("Composite");
+  if (Flatten) run("Flatten");
+  run("Set Scale...", "distance=" + ScaleDistance + " known=" + ScaleKnown + " unit=" + ScaleUnit);
+
+if (Flatten) print("Flatten");
+print("Scale");
+
+// ====================================================================================================================
+  // Save the output image
+    // Output image will be named as: subfolderName_CH1Tag.CH2Tag.Ch3Tag.CH4Tag_Merged_Magnification_Microscope_FlattenStatus.tif
+      // Example: 2809.L.1_DAPI.Laminin.Pax7.EdU_Merged_20x_Lepper_Zeiss_Ch-Sep.tif
+
+baseName = subfolders[sf].replace("/", "");
+outputFile = parentFolder + "/" + baseName + "." + CH1Tag + "." + CH2Tag;
+if (IncludeCH3) {
+outputFile += "." + CH3Tag;
+}
+if (IncludeCH4) {
+outputFile += "." + CH4Tag;
+}
+if (Flatten) {
+        outputFile + = "_Merged_" + Magnification + “_” + Microscope + ".tif";
+    } else {
+        outputFile + = "_Merged_" + Magnification + “_” + Microscope + "_Ch-Sep.tif";
+    }
+saveAs("Tiff", outputFile);
+fileName = File.getName(outputFile);
+print(fileName);
+
+// Close all open images
+
+close("*");
+}
+
+// Return batch mode to false to return GUI to normal function
+setBatchMode(false);                            
+print("Congrats, you’ve just saved yourself a lot of time and effort :)");
