@@ -4,7 +4,7 @@ Scripts for image analysis softwares
 Written by Kristina M. Sattler
 
 Notes:
-- See document comments for further explanations of how to tailor code to your experiment - Adjust pathways, labels, and settings to fit your experiment! 
+- See comments for further explanations of how to tailor code to your experiment - Adjust pathways, labels, and settings to fit your experiment! 
 - To add or remove a line of code, DO NOT delete it- add “//” at the beginning of the line so it is read as a comment rather than code to be executed
   - Any text with “//” in front will be interpreted as a comment and ignored. This is useful for taking notes on lines of code or toggling switches to include/exclude arguments
 - Pay close attention to punctuation in code! Make sure the code of each line ends in a semicolon (not comments) and quotes are correctly placed
