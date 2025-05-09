@@ -1,5 +1,6 @@
 // ImageJ: Batch Image Merge
   // For 2-4 channels, this macro will merge, color, adjust brightness/contrast (optional), scale, flatten (optional), and save images
+  // For a visual protocol, visit https://docs.google.com/presentation/d/1CTtqTSNUum6EEhPJL1grh1kQdMZZvT59ptHWKd7ilv8/edit?usp=sharing
 
 // File organization:
   // Parent folders > Subfolders > Images
