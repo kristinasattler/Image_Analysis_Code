@@ -4,6 +4,7 @@ Scripts for image analysis softwares
 Written by Kristina M. Sattler
 
 Notes:
+- Only cahnge code in sections with EDIT
 - See comments for further explanations of how to tailor code to your experiment - Adjust pathways, labels, and settings to fit your experiment! 
 - To add or remove a line of code, DO NOT delete it- add “//” at the beginning of the line so it is read as a comment rather than code to be executed
   - Any text with “//” in front will be interpreted as a comment and ignored. This is useful for taking notes on lines of code or toggling switches to include/exclude arguments
@@ -26,7 +27,12 @@ Completed code
       - Filter by size to eliminate small ROIs
 - **QuPath Scripts**
   - Image Setup
-  - Batch Colocalization Quantification
-    - This script will use DAPI to detect nuclei, create ROIs around the nuclei, measure the mean gray value of all channels in the image, classify each ROI based on mean gray value measurements, and save individual and summaryvalues to a .txt file
   - Batch Cell Detection
+  - Batch Colocalization Quantification - Complete
+    - This script will use DAPI to:
+      - Detect nuclei
+      - Create ROIs around the nuclei
+      - Measure the mean gray value of all channels in the image
+      - Classify each ROI based on mean gray value measurements
+      - Save individual and summary values to a .txt file
   - Classifiers
