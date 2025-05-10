@@ -35,7 +35,7 @@ setBatchMode(true);
     // Make sure the pathway is enclosed with double quotes and a semicolon at the end of the line!
       // Example: parentFolder = "/pathway/to/my/parentFolder";
 
-parentFolder = "/Volumes/LEPPERLAB/Med12/Quantification/Myosin Quantification/BF-F3_SC-71/4905";
+parentFolder = "/pathway/to/parentFolder";
 
 // ====================================================================================================================
   // EDIT: Include/exclude channel 3/4 - exchange "//" to the line that will be *ignored* by the code
@@ -226,12 +226,9 @@ if (Flatten) {
 saveAs("Tiff", outputFile);
 fileName = File.getName(outputFile);
 print(fileName);
-
-// Close all open images
-
-close("*");
+close("*");                                   // Close all open images
 }
 
-// Return batch mode to false to return GUI to normal function
+// Set batch mode to false to return GUI to normal function
 setBatchMode(false);                            
 print("Congrats, you’ve just saved yourself a lot of time and effort :)");
