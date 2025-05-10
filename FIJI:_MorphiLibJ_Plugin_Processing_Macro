@@ -1,0 +1,60 @@
+// FIJI: MorphoLibJ Plugin Processing Macro
+  // This macro will process mask files created in Cellpose:
+    // Remove the border ROIs 
+    // Filter by size to eliminate small ROIs
+
+// Copy and paste code below into the macro window:
+
+// ====================================================================================================================
+// =============================================== Configure Variables ================================================
+// ===================== Adjust the code in this section to match the details of your experiment ======================
+// ====================================================================================================================
+
+  // Activate batch mode
+    // This will prevent the GUI from showing the images opening, processing, and closing. 
+      // This is especially useful for individuals with sensitivity to flashing lights. See the Log window for progress while the macro is running.
+
+setBatchMode(true);  
+
+// ====================================================================================================================
+  // EDIT: Set the pathway to the input folder containing mask images AND output folder for processed images to be saved
+    // Make sure the pathway is enclosed with double quotes and a semicolon at the end of the line!
+      // Example: parentFolder = "/pathway/to/my/parentFolder";
+
+inputFolder = getDirectory("/pathway/to/folder/of/images");
+outputFolder = getDirectory("/pathway/to/output/folder");
+
+// ====================================================================================================================
+// =========================================== Run Macro to process images ============================================
+// ===================================== DO NOT change any code in this section! ======================================
+// ====================================================================================================================
+
+// List files and open images
+list = getFileList(inputFolder);
+for (i = 0; i < list.length; i++) {
+    open(inputFolder + list[i]);
+
+// ====================================================================================================================
+// Remove Border Labels
+    run("Remove Border Labels", "left right top bottom");
+
+// ====================================================================================================================
+// Connected Components Labeling
+    run("Connected Components Labeling", "connectivity=4 type=[16 bits]");
+
+// ====================================================================================================================
+// Label Size Filtering
+    run("Label Size Filtering", "operation=Greater_Than size=100");
+
+// ====================================================================================================================
+// Save 
+    originalName = list[i];
+    newName = replace(originalName, ".png", "_Filtered.png");
+        
+    saveAs("png", outputFolder + newName);
+    close();
+    close();
+    close();
+    close();
+}
+print("Congrats, you’ve just saved yourself a lot of time :)");
