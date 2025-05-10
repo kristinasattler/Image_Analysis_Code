@@ -92,10 +92,10 @@ bcCH4Max = 255;                      // Set max value of channel 4 (if applicabl
   // EDIT: Set scales according to the microscope. See Microscope Scales document for scale info of some scopes
     // Pixel aspect ratio is set to 1.0 by default
 
-ScaleDistance = 1300;                // Distance in Pixels 
-ScaleKnown = 435;                    // Known Distance 
-ScaleUnit = "um";                    // Unit of Length
-Magnification = “20x”;               // Magnification of the image
+ScalePixels = 1300;                  // Distance in pixels
+ScaleDistance = 435;                 // Known distance
+ScaleUnit = "um";                    // Unit of measurement
+Magnification = "20x";               // Magnification
 Microscope = “Lepper_Zeiss”          // Microscope 
 
 // ====================================================================================================================
@@ -200,7 +200,7 @@ print("Brightness and Contrast");
 
 selectImage("Composite");
   if (Flatten) run("Flatten");
-  run("Set Scale...", "distance=" + ScaleDistance + " known=" + ScaleKnown + " unit=" + ScaleUnit);
+  run("Set Scale...", "distance=" + ScalePixels + " known=" + ScaleDistance + " unit=" + ScaleUnit);
 
 if (Flatten) print("Flatten");
 print("Scale");
