@@ -21,7 +21,9 @@ Completed code
     - This macro will measure the area of an image covered by fluorescence above a set threshold
 - **FIJI Macros**
   - MorphoLibJ Processing Cellpose Masks - Complete
-    - This macro will process mask images created in Cellpose to remove the border ROIs and filter ROIs by size to eliminate small ROIs
+    - This macro will process mask images created in Cellpose 
+      - Remove the border ROIs 
+      - Filter by size to eliminate small ROIs
 - **QuPath Scripts**
   - Image Setup
   - Batch Colocalization Quantification
