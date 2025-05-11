@@ -1,0 +1,94 @@
+// QuPath:_Automatic_Batch_Colocalization_Quantification
+  // Pay close attention to punctuation in code! Make sure the code of each line ends in a semicolon (not the comments) and quotes are correctly placed
+  // The title of the section will be printed to the console after each step to help track any errors that may come up 
+
+// ====================================================================================================================
+// Image Setup ========================================================================================================
+// ====================================================================================================================
+
+// EDIT: Set image type
+
+setImageType('FLUORESCENCE');                  // Fluorescence
+// setImageType('BRIGHTFIELD_H_DAB');          // Brightfield (H-DAB)
+// setImageType('BRIGHTFIELD_H_E');            // Brightfield (H&E)
+// setImageType('BRIGHTFIELD_OTHER');          // Brightfield (Other)
+// setImageType('OTHER');                      // Other
+
+print 'Set Image Type'
+
+// ====================================================================================================================
+// EDIT: Set channel names
+  // red, green, blue
+
+setChannelNames('EdU', 'Pax7', 'DAPI'); 
+print 'Set Channel Names'
+
+// ====================================================================================================================
+// EDIT: Set brightness and contrast
+  // ('Channel', minimum, maximum)
+  // For no brightness/contrast adjustment:
+    // 8-bit: 0-255
+    // 16-bit: 1-65535
+
+setChannelDisplayRange('EdU', 2, 35);
+setChannelDisplayRange('Pax7', 41, 64);
+setChannelDisplayRange('DAPI', 20, 243);
+
+print 'Set Brightness and Contrast'
+
+// ====================================================================================================================
+// Create a whole-image annotation
+
+createFullImageAnnotation(true)
+print 'Create Annotation'
+
+// ====================================================================================================================
+// Cell Detection =====================================================================================================
+// ====================================================================================================================
+
+// EDIT: Detect cells via DAPI
+  // For explanations of each parameter, see: https://docs.google.com/document/d/1IrlFiODt2iRYPPjTQJiHGo9cTklRSA_u_fXa7nv2Uzk/edit?tab=t.o8v24ckegg4b
+
+runPlugin('qupath.imagej.detect.cells.WatershedCellDetection', '{"detectionImage":"DAPI","requestedPixelSizeMicrons":1.0, "backgroundRadiusMicrons":15.0, "backgroundByReconstruction":true, "medianRadiusMicrons":0.0, "sigmaMicrons":2.0, "minAreaMicrons":10.0, "maxAreaMicrons":250.0, "threshold":50.0, "watershedPostProcess":true, "cellExpansionMicrons":0.0, "includeNuclei":true, "smoothBoundaries":true, "makeMeasurements":true}');
+print 'Cell Detection'
+
+// ====================================================================================================================
+// EDIT: Classify Cells 
+  // List the file names of classifiers for detection measurements in the order they should be applied
+
+runObjectClassifier("Classifier_10x_EdU+", "Classifier_10x_Pax7+");
+print 'Classify Cells'
+
+// ====================================================================================================================
+// Save measurements - DO NOT change anything in this section =========================================================
+// ====================================================================================================================
+
+import qupath.lib.gui.tools.MeasurementExporter
+
+  // Save detection measurements (individual nuclei measurements)
+def name = getProjectEntry().getImageName() + '_Detections.txt'
+   // Define a variable to name the detections file
+def path = buildFilePath(PROJECT_BASE_DIR, 'Results/Detections')
+   // Define a variable to set the location in the project directory
+mkdirs(path)
+   // Create the directory defined by path
+path = buildFilePath(path, name)
+   // Create the .txt file in the Results/Detections directory
+saveDetectionMeasurements(path)
+  // Propagate detection measurements to the .txt file
+print 'Save Detection Measurements'
+
+// Save annotations measurements (classifier summary)
+def name2 = getProjectEntry().getImageName() + '_Annotations.txt'
+   // Define a variable to name the annotations file
+def path2 = buildFilePath(PROJECT_BASE_DIR, 'Results/Annotations')
+   // Define a variable to set the location in the project directory
+mkdirs(path2)
+   // Create the directory defined by path2
+path2 = buildFilePath(path2, name2)
+   // Create the .txt file in the Results/Annotations directory
+saveAnnotationMeasurements(path2)
+  // Propagate annotation measurements to the .txt file
+print 'Save Annotation Measurements'
+
+
