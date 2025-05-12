@@ -1,4 +1,5 @@
 // QuPath:_Automatic_Batch_Colocalization_Quantification
+  // Written by Kristina M. Sattler
   // See https://bit.ly/4j2lXtM for a visual protocol
   // Pay close attention to punctuation in code! Make sure the code of each line ends in a semicolon (not the comments) and quotes are correctly placed
   // The title of the section will be printed to the console after each step to help track any errors that may come up 
