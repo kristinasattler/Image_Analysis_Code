@@ -1,0 +1,56 @@
+// QuPath: Semi-Automatic Satellite Cell Quantification Script
+  // ONLY edit variables where sections have "EDIT:" or "EDIT (optional):" at the beginning of the section!
+  // See https://bit.ly/4iXBiMg for a visual protocol in Google Drive
+  // Pay close attention to punctuation in code! Make sure the code of each line ends in a semicolon (not the comments) and quotes are correctly placed
+  // The title of the section will be printed to the console after each step to help track any errors that may come up 
+
+// ====================================================================================================================
+// Image Setup ========================================================================================================
+// ====================================================================================================================
+
+// EDIT: Set image type
+
+setImageType('FLUORESCENCE');                  // Fluorescence
+// setImageType('BRIGHTFIELD_H_DAB');          // Brightfield (H-DAB)
+// setImageType('BRIGHTFIELD_H_E');            // Brightfield (H&E)
+// setImageType('BRIGHTFIELD_OTHER');          // Brightfield (Other)
+// setImageType('OTHER');                      // Other
+
+print 'Set Image Type'
+
+// ====================================================================================================================
+// EDIT: Set channel names
+  // red, green, blue, cyan
+
+setChannelNames('Pax7', 'Laminin', 'DAPI', 'EdU'); 
+print 'Set Channel Names'
+
+// ====================================================================================================================
+// EDIT: Set brightness and contrast
+  // ('Channel', minimum, maximum)
+  // For no brightness/contrast adjustment:
+    // 8-bit: 0-255
+    // 16-bit: 1-65535
+
+setChannelDisplayRange('EdU', 0, 255);
+setChannelDisplayRange('Pax7', 0, 255);
+setChannelDisplayRange('Laminin', 0, 255);
+setChannelDisplayRange('DAPI', 0, 255);
+
+print 'Set Brightness and Contrast'
+
+// ====================================================================================================================
+// Create a whole-image annotation
+
+createFullImageAnnotation(true)
+print 'Create Annotation'
+
+// ====================================================================================================================
+// Cell Detection =====================================================================================================
+// ====================================================================================================================
+
+// EDIT: Detect cells via DAPI
+  // For explanations of each parameter, see: https://bit.ly/3GQ2gIk 
+
+runPlugin('qupath.imagej.detect.cells.WatershedCellDetection', '{"detectionImage":"DAPI","requestedPixelSizeMicrons":1.0,"backgroundRadiusMicrons":15.0,"backgroundByReconstruction":true,"medianRadiusMicrons":0.0,"sigmaMicrons":2.5,"minAreaMicrons":5.0,"maxAreaMicrons":500.0,"threshold":23.0,"watershedPostProcess":true,"cellExpansionMicrons":0.0,"includeNuclei":true,"smoothBoundaries":true,"makeMeasurements":true}')
+print 'Cell Detection'
