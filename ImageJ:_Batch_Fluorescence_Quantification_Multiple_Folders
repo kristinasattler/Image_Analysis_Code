@@ -34,6 +34,7 @@ Measurements = "area mean integrated display redirect=None decimal=3"
 
 ScalePixels = 1300;                  // Distance in pixels
 ScaleDistance = 435;                 // Known distance
+ScalePAR = 1.0;                      // Pixel Aspect Ratio (this will almost always be 1.0)
 ScaleUnit = "um";                    // Unit of measurement
 Magnification = "20x";               // Magnification
 Microscope = “Lepper_Zeiss”          // Microscope 
@@ -65,7 +66,7 @@ for (i = 0; i < list.length; i++) {
   if (endsWith(list[i], ".tif") || endsWith(list[i], ".tiff")) {
     open(filePath);
   // Set scale 
-      run("Set Scale...", "distance=" + ScalePixels + " known=" + ScaleDistance + " unit=" + ScaleUnit);
+      run("Set Scale...", "distance=" + ScaleDistance + " known=" + ScaleKnown + " pixel=" + ScalePAR + " unit=" + ScaleUnit);
   // Set Measurements
       run(“Set Measurements…”, Measurements);
   // Measure images 
