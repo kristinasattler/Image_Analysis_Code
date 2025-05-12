@@ -1,4 +1,5 @@
 // ImageJ: Batch Image Merge
+  // Written by Kristina M. Sattler
   // For 2-4 channels, this macro will merge, color, adjust brightness/contrast (optional), scale, flatten (optional), and save images
   // ONLY edit variables where sections have "EDIT:" or "EDIT (optional):" at the beginning of the section
   // Do not change any of the names of the dynamic variables (text before the =), only what they mean (after the =)
