@@ -19,6 +19,9 @@
         // 2809.L.2_568.Pax7_20x_Lepper_Zeiss_22.4.11        (Channel 3)
         // 2809.L.2_Cy5.EdU_20x_Lepper_Zeiss_22.4.11         (Channel 4)
   // Tip: name the subfolders as simple as possible- these will be used in the file name of the final merged image!
+    // Output image will be named as: subfolderName_CH1Tag_CH2Tag_Ch3Tag_CH4Tag_Merged_Magnification_Microscope.tif
+      // CH3Tag and CH4Tag will only be included if IncludeCH3 and/or IncludeCH4 = true
+      // e.g.: 7088.L.1_DAPI_Laminin_EdU_Merged_20x_Lepper_Zeiss_Ch-Sep.tif
 
 // Copy and paste code below into the macro window:
 
@@ -101,6 +104,7 @@ bcCH4Max = 255;                      // Set max value of channel 4 (if applicabl
 
 ScalePixels = 1300;                  // Distance in pixels
 ScaleDistance = 435;                 // Known distance
+ScalePAR = 1.0;                      // Pixel Aspect Ratio (this will almost always be 1.0)
 ScaleUnit = "um";                    // Unit of measurement
 Magnification = "20x";               // Magnification
 Microscope = “Lepper_Zeiss”          // Microscope 
@@ -207,7 +211,7 @@ print("Brightness and Contrast");
 
 selectImage("Composite");
   if (Flatten) run("Flatten");
-  run("Set Scale...", "distance=" + ScalePixels + " known=" + ScaleDistance + " unit=" + ScaleUnit);
+  run("Set Scale...", "distance=" + ScaleDistance + " known=" + ScaleKnown + " pixel=" + ScalePAR + " unit=" + ScaleUnit);
 
 if (Flatten) print("Flatten");
 print("Scale");
