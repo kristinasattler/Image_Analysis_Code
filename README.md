@@ -28,6 +28,7 @@ Completed code
 - **QuPath Scripts**
   - Image Setup
   - Batch Cell Detection
+  - Semi-Automatic Satellite Cell Quantification
   - Batch Colocalization Quantification - Complete
     - This script will use DAPI to:
       - Detect nuclei
