@@ -1,4 +1,5 @@
 // ImageJ: Batch Image Merge
+  // ONLY edit variables where sections have "EDIT:" or "EDIT (optional):" at the beginning of the section!
   // For 2-4 channels, this macro will merge, color, adjust brightness/contrast (optional), scale, flatten (optional), and save images
   // For a visual protocol, visit https://docs.google.com/presentation/d/1CTtqTSNUum6EEhPJL1grh1kQdMZZvT59ptHWKd7ilv8/edit?usp=sharing
 
