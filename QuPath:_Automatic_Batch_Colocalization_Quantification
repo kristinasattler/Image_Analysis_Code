@@ -1,4 +1,5 @@
 // QuPath:_Automatic_Batch_Colocalization_Quantification
+  // See https://bit.ly/4j2lXtM for a visual protocol
   // Pay close attention to punctuation in code! Make sure the code of each line ends in a semicolon (not the comments) and quotes are correctly placed
   // The title of the section will be printed to the console after each step to help track any errors that may come up 
 
@@ -47,7 +48,7 @@ print 'Create Annotation'
 // ====================================================================================================================
 
 // EDIT: Detect cells via DAPI
-  // For explanations of each parameter, see: https://docs.google.com/document/d/1IrlFiODt2iRYPPjTQJiHGo9cTklRSA_u_fXa7nv2Uzk/edit?tab=t.o8v24ckegg4b
+  // For explanations of each parameter, see: https://bit.ly/4jRVRep
 
 runPlugin('qupath.imagej.detect.cells.WatershedCellDetection', '{"detectionImage":"DAPI","requestedPixelSizeMicrons":1.0, "backgroundRadiusMicrons":15.0, "backgroundByReconstruction":true, "medianRadiusMicrons":0.0, "sigmaMicrons":2.0, "minAreaMicrons":10.0, "maxAreaMicrons":250.0, "threshold":50.0, "watershedPostProcess":true, "cellExpansionMicrons":0.0, "includeNuclei":true, "smoothBoundaries":true, "makeMeasurements":true}');
 print 'Cell Detection'
