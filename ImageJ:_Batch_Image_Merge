@@ -1,7 +1,8 @@
 // ImageJ: Batch Image Merge
-  // ONLY edit variables where sections have "EDIT:" or "EDIT (optional):" at the beginning of the section!
   // For 2-4 channels, this macro will merge, color, adjust brightness/contrast (optional), scale, flatten (optional), and save images
-  // For a visual protocol, visit https://docs.google.com/presentation/d/1CTtqTSNUum6EEhPJL1grh1kQdMZZvT59ptHWKd7ilv8/edit?usp=sharing
+  // ONLY edit variables where sections have "EDIT:" or "EDIT (optional):" at the beginning of the section
+  // Do not change any of the names of the dynamic variables (text before the =), only what they mean (after the =)
+  // For a visual protocol, visit https://bit.ly/4de8LAT
 
 // File organization:
   // Parent folders > Subfolders > Images
@@ -17,6 +18,7 @@
         // 2809.L.2_488.Laminin_20x_Lepper_Zeiss_22.4.11     (Channel 2)
         // 2809.L.2_568.Pax7_20x_Lepper_Zeiss_22.4.11        (Channel 3)
         // 2809.L.2_Cy5.EdU_20x_Lepper_Zeiss_22.4.11         (Channel 4)
+  // Tip: name the subfolders as simple as possible- these will be used in the file name of the final merged image!
 
 // Copy and paste code below into the macro window:
 
@@ -33,9 +35,11 @@ setBatchMode(true);
 
 // ====================================================================================================================
   // EDIT: Set the pathway to the parent folder containing subfolders
-    // Make sure the pathway is enclosed with double quotes and a semicolon at the end of the line!
+    // Make sure the pathway is enclosed with double quotes and a semicolon at the end of the line
+    // If you type the file pathway manually, note frontslash vs. backslash based on your operating system
       // Mac example: parentFolder = "/Users/kristiesattler/Desktop/pathway/to/my/parentFolder";
-      // PC example: parentFolder = "C:\Users\satt25\pathway\to\my\parentFolder";
+      // Linux example: parentFolder = "C:/Users/satt25/Desktop/pathway/to/my/parentFolder";
+      // Windows example: parentFolder = "C:\Users\satt25\Desktop\pathway\to\my\parentFolder";
 
 parentFolder = "/pathway/to/parentFolder";
 
@@ -60,7 +64,8 @@ CH3Tag = “Pax7”;                           // Channel 3 (if applicable, igno
 CH4Tag = “EdU”;                            // Channel 4 (if applicable, ignore of no CH4)
 
 // ====================================================================================================================
-  // EDIT: Set color of each channel (1 = red; 2 = green; 3 = blue; 4 = grey; 5 = cyan; 6 = magenta; 7 = yellow)
+  // EDIT: Set color of each channel
+    // 1 = red; 2 = green; 3 = blue; 4 = grey; 5 = cyan; 6 = magenta; 7 = yellow
 
 CH1_channelColor = 3;                 // Set color of channel 1
 CH2_channelColor = 2;                 // Set color of channel 2
