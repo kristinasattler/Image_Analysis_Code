@@ -34,7 +34,8 @@ setBatchMode(true);
 // ====================================================================================================================
   // EDIT: Set the pathway to the parent folder containing subfolders
     // Make sure the pathway is enclosed with double quotes and a semicolon at the end of the line!
-      // Example: parentFolder = "/pathway/to/my/parentFolder";
+      // Mac example: parentFolder = "/Users/kristiesattler/Desktop/pathway/to/my/parentFolder";
+      // PC example: parentFolder = "C:\Users\satt25\pathway\to\my\parentFolder";
 
 parentFolder = "/pathway/to/parentFolder";
 
