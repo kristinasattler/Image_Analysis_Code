@@ -38,4 +38,4 @@ Completed code
       - Save individual and summary values to a .txt file
   - Classifiers
 
-<img width="742" alt="File_Organization" src="https://github.com/user-attachments/assets/56804820-58c2-4e4b-bb89-553b6c63605e" />
+<img width="742" alt="File_Organization" src="https://github.com/user-attachments/assets/a0482e32-7d65-4393-84f7-1afe462844e9" />
