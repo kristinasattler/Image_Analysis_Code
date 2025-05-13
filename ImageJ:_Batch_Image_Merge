@@ -212,7 +212,7 @@ print("Brightness and Contrast");
 
 selectImage("Composite");
   if (Flatten) run("Flatten");
-  run("Set Scale...", "distance=" + ScaleDistance + " known=" + ScaleKnown + " pixel=" + ScalePAR + " unit=" + ScaleUnit);
+  run("Set Scale...", "distance=" + ScalePixels + " known=" + ScaleDistance + " pixel=" + ScalePAR + " unit=" + ScaleUnit);
 
 if (Flatten) print("Flatten");
 print("Scale");
