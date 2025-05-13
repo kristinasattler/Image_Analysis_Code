@@ -37,5 +37,6 @@ Completed code
       - Classify each ROI based on mean gray value measurements
       - Save individual and summary values to a .txt file
   - Classifiers
-
+ 
+File Organization:
 <img width="742" alt="File_Organization" src="https://github.com/user-attachments/assets/a0482e32-7d65-4393-84f7-1afe462844e9" />
