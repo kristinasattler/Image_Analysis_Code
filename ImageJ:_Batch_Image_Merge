@@ -62,10 +62,10 @@ IncludeCH4 = true;                         // Include Channel 4
     // Make sure unique text is enclosed in double quotes and the line ends with a semicolon!
     // Channel 1/2/3/4 will be called CH1/2/3/4 throughout the code, so make sure this is consistent as you're setting your variables
 
-CH1Tag = “DAPI”;                           // Channel 1
-CH2Tag = “Laminin”;                        // Channel 2 
-CH3Tag = “Pax7”;                           // Channel 3 (if applicable, ignore of no CH3)
-CH4Tag = “EdU”;                            // Channel 4 (if applicable, ignore of no CH4)
+CH1Tag = "DAPI";                           // Channel 1
+CH2Tag = "Laminin";                        // Channel 2 
+CH3Tag = "Pax7";                           // Channel 3 (if applicable, ignore of no CH3)
+CH4Tag = "EdU";                            // Channel 4 (if applicable, ignore of no CH4)
 
 // ====================================================================================================================
   // EDIT: Set color of each channel
@@ -78,8 +78,8 @@ CH4_channelColor = 5;                 // Set color of channel 4 (if applicable, 
 
 // ====================================================================================================================
   // EDIT: Set brightness/contrast adjustment method and values
-    // “true” for automatic brightness/contrast (will be different for each image and channel)
-    // “false” to manually set brightness and contrast to a stationary value 
+    // "true" for automatic brightness/contrast (will be different for each image and channel)
+    // "false" to manually set brightness and contrast to a stationary value 
     // For no brightness/contrast adjustment:
       // 8-bit: 0-255
       // 16-bit: 0-65,535
@@ -108,7 +108,7 @@ ScaleDistance = 435;                 // Known distance
 ScalePAR = 1.0;                      // Pixel Aspect Ratio (this will almost always be 1.0)
 ScaleUnit = "um";                    // Unit of measurement
 Magnification = "20x";               // Magnification
-Microscope = “Lepper_Zeiss”          // Microscope 
+Microscope = "Lepper_Zeiss"          // Microscope 
 
 // ====================================================================================================================
   // EDIT: Flatten the image from three layers into one RGB layer
@@ -231,9 +231,9 @@ if (IncludeCH4) {
 outputFile += "." + CH4Tag;
 }
 if (Flatten) {
-        outputFile + = "_Merged_" + Magnification + “_” + Microscope + ".tif";
+        outputFile + = "_Merged_" + Magnification + "_" + Microscope + ".tif";
     } else {
-        outputFile + = "_Merged_" + Magnification + “_” + Microscope + "_Ch-Sep.tif";
+        outputFile + = "_Merged_" + Magnification + "_" + Microscope + "_Ch-Sep.tif";
     }
 saveAs("Tiff", outputFile);
 fileName = File.getName(outputFile);
