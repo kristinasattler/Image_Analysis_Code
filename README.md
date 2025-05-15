@@ -3,14 +3,14 @@
 Scripts for image analysis softwares  
 Written by Kristina M. Sattler
 
-Notes:
+### Notes:
 - Only change code in sections with EDIT
 - See comments for further explanations of how to tailor code to your experiment - Adjust pathways, labels, and settings to fit your experiment! 
 - To add or remove a line of code, DO NOT delete it- add “//” at the beginning of the line so it is read as a comment rather than code to be executed
   - Any text with “//” in front will be interpreted as a comment and ignored. This is useful for taking notes on lines of code or toggling switches to include/exclude arguments
 - Pay close attention to punctuation in code! Make sure the code of each line ends in a semicolon (not comments) and quotes are correctly placed
 
-Completed code
+### Completed code
 - **ImageJ Macros**
   - Batch Image Merge - Complete
     - For 2-4 channels, this macro will merge, color, adjust brightness/contrast, scale, flatten (optional), and save images 
@@ -38,5 +38,16 @@ Completed code
       - Save individual and summary values to a .txt file
   - Classifiers
  
-File Organization:
+### File Organization:
+- Parent Folder = folder containing subfolders of one sample
+  - e.g. 7088.L.Scan_29-22
+- Subfolders = group of folders in the parent folder containing images 
+  - Name the subfolders with SampleID.SampleType.#
+    - e.g. 7088.L.1 (sample 7088, left muscle, image 1)
+    - *Note: Keep Subfolder names very simple. These will be used to name the final output files when applicable
+- Images = images that code will be applied to
+- Oraganize files like this for:
+  - ImageJ: Batch Image Merge
+  - ImageJ: Fluorescence Quantification
+  - ImageJ: Set Scales
 <img width="742" alt="File_Organization" src="https://github.com/user-attachments/assets/a0482e32-7d65-4393-84f7-1afe462844e9" />
