@@ -2,7 +2,7 @@
   // Written by Kristina M. Sattler
   // ONLY edit variables where sections have "EDIT:" or "EDIT (optional):" at the beginning of the section!
   // See https://bit.ly/4iXBiMg for a visual protocol in Google Drive
-  // Pay close attention to punctuation in code! Make sure the code of each line ends in a semicolon (not the comments) and quotes are correctly placed
+  // Pay close attention to punctuation in code! Make sure the code of each line ends in a semicolon (excluding comments) and quotes are correctly placed
   // The title of the section will be printed to the console after each step to help track any errors that may come up 
 
 // ====================================================================================================================
@@ -21,22 +21,24 @@ print 'Set Image Type'
 
 // ====================================================================================================================
 // EDIT: Set channel names
-  // red, green, blue, cyan
+  // Delete: , 'Cyan' :if there is no fourth channel
 
-setChannelNames('Pax7', 'Laminin', 'DAPI', 'EdU'); 
+setChannelNames('Red', 'Green', 'Blue', 'Cyan'); 
+
 print 'Set Channel Names'
 
 // ====================================================================================================================
 // EDIT: Set brightness and contrast
   // ('Channel', minimum, maximum)
+  // remove "// " to include a fourth channel
   // For no brightness/contrast adjustment:
     // 8-bit: 0-255
     // 16-bit: 1-65535
 
-setChannelDisplayRange('EdU', 0, 255);
-setChannelDisplayRange('Pax7', 0, 255);
-setChannelDisplayRange('Laminin', 0, 255);
-setChannelDisplayRange('DAPI', 0, 255);
+setChannelDisplayRange('Blue', 0, 255);
+setChannelDisplayRange('Green', 0, 255);
+setChannelDisplayRange('Red', 0, 255);
+// setChannelDisplayRange('Cyan', 0, 255);
 
 print 'Set Brightness and Contrast'
 
@@ -44,6 +46,7 @@ print 'Set Brightness and Contrast'
 // Create a whole-image annotation
 
 createFullImageAnnotation(true)
+
 print 'Create Annotation'
 
 // ====================================================================================================================
@@ -53,5 +56,23 @@ print 'Create Annotation'
 // EDIT: Detect cells via DAPI
   // For explanations of each parameter, see: https://bit.ly/3GQ2gIk 
 
-runPlugin('qupath.imagej.detect.cells.WatershedCellDetection', '{"detectionImage":"DAPI","requestedPixelSizeMicrons":1.0,"backgroundRadiusMicrons":15.0,"backgroundByReconstruction":true,"medianRadiusMicrons":0.0,"sigmaMicrons":2.5,"minAreaMicrons":5.0,"maxAreaMicrons":500.0,"threshold":23.0,"watershedPostProcess":true,"cellExpansionMicrons":0.0,"includeNuclei":true,"smoothBoundaries":true,"makeMeasurements":true}')
+runPlugin('qupath.imagej.detect.cells.WatershedCellDetection', 
+    """{
+        "detectionImage": "DAPI",
+        "requestedPixelSizeMicrons": 1.0,
+        "backgroundRadiusMicrons": 15.0,
+        "backgroundByReconstruction": true,
+        "medianRadiusMicrons": 0.0,
+        "sigmaMicrons": 2.5,
+        "minAreaMicrons": 5.0,
+        "maxAreaMicrons": 500.0,
+        "threshold": 23.0,
+        "watershedPostProcess": true,
+        "cellExpansionMicrons": 0.0,
+        "includeNuclei": true,
+        "smoothBoundaries": true,
+        "makeMeasurements": true
+    }"""
+);
+
 print 'Cell Detection'
