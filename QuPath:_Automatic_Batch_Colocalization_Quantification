@@ -23,6 +23,7 @@ print 'Set Image Type'
   // red, green, blue
 
 setChannelNames('EdU', 'Pax7', 'DAPI'); 
+
 print 'Set Channel Names'
 
 // ====================================================================================================================
@@ -42,6 +43,7 @@ print 'Set Brightness and Contrast'
 // Create a whole-image annotation
 
 createFullImageAnnotation(true)
+
 print 'Create Annotation'
 
 // ====================================================================================================================
@@ -51,7 +53,25 @@ print 'Create Annotation'
 // EDIT: Detect cells via DAPI
   // For explanations of each parameter, see: https://bit.ly/3GQ2gIk 
 
-runPlugin('qupath.imagej.detect.cells.WatershedCellDetection', '{"detectionImage":"DAPI","requestedPixelSizeMicrons":1.0, "backgroundRadiusMicrons":15.0, "backgroundByReconstruction":true, "medianRadiusMicrons":0.0, "sigmaMicrons":2.0, "minAreaMicrons":10.0, "maxAreaMicrons":250.0, "threshold":50.0, "watershedPostProcess":true, "cellExpansionMicrons":0.0, "includeNuclei":true, "smoothBoundaries":true, "makeMeasurements":true}');
+runPlugin('qupath.imagej.detect.cells.WatershedCellDetection', 
+    """{
+        "detectionImage": "DAPI",
+        "requestedPixelSizeMicrons": 1.0,
+        "backgroundRadiusMicrons": 15.0,
+        "backgroundByReconstruction": true,
+        "medianRadiusMicrons": 0.0,
+        "sigmaMicrons": 2.0,
+        "minAreaMicrons": 10.0,
+        "maxAreaMicrons": 250.0,
+        "threshold": 50.0,
+        "watershedPostProcess": true,
+        "cellExpansionMicrons": 0.0,
+        "includeNuclei": true,
+        "smoothBoundaries": true,
+        "makeMeasurements": true
+    }"""
+);
+
 print 'Cell Detection'
 
 // ====================================================================================================================
@@ -59,6 +79,7 @@ print 'Cell Detection'
   // List the file names of classifiers for detection measurements in the order they should be applied
 
 runObjectClassifier("Classifier_10x_EdU+", "Classifier_10x_Pax7+");
+
 print 'Classify Cells'
 
 // ====================================================================================================================
@@ -80,7 +101,7 @@ saveDetectionMeasurements(path)
   // Propagate detection measurements to the .txt file
 print 'Save Detection Measurements'
 
-// Save annotations measurements (classifier summary)
+  // Save annotations measurements (classifier summary)
 def name2 = getProjectEntry().getImageName() + '_Annotations.txt'
    // Define a variable to name the annotations file
 def path2 = buildFilePath(PROJECT_BASE_DIR, 'Results/Annotations')
