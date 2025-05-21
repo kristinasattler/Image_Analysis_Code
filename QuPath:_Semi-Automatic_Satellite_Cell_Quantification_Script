@@ -33,8 +33,8 @@ print 'Set Channel Names'
   // remove "// " to include a fourth channel
   // For no brightness/contrast adjustment:
     // 8-bit: 0-255
-    // 12-bit: 4095
-    // 16-bit: 1-65535
+    // 12-bit: 0-4095
+    // 16-bit: 0-65535
 
 setChannelDisplayRange('Blue', 0, 255);
 setChannelDisplayRange('Green', 0, 255);
