@@ -21,9 +21,9 @@ print 'Set Image Type'
 
 // ====================================================================================================================
 // EDIT: Set channel names
-  // Delete: , 'Cyan' :if there is no fourth channel
 
-setChannelNames('Red', 'Green', 'Blue', 'Cyan'); 
+// setChannelNames('red', 'green', 'blue');
+setChannelNames('red', 'green', 'blue', 'cyan'); 
 
 print 'Set Channel Names'
 
@@ -36,10 +36,10 @@ print 'Set Channel Names'
     // 12-bit: 0-4095
     // 16-bit: 0-65535
 
-setChannelDisplayRange('Blue', 0, 255);
-setChannelDisplayRange('Green', 0, 255);
-setChannelDisplayRange('Red', 0, 255);
-// setChannelDisplayRange('Cyan', 0, 255);
+setChannelDisplayRange('DAPI', 200, 1835);
+setChannelDisplayRange('Laminin', 85, 2610);
+setChannelDisplayRange('Pax7', 87, 880);
+setChannelDisplayRange('EdU', 145, 1750);
 
 print 'Set Brightness and Contrast'
 
@@ -77,3 +77,11 @@ runPlugin('qupath.imagej.detect.cells.WatershedCellDetection',
 );
 
 print 'Cell Detection'
+
+// ====================================================================================================================
+// EDIT: Classify Cells 
+  // List the file names of classifiers for detection measurements
+
+runObjectClassifier("Classifier_10x_EdU+");
+
+print 'Classify Cells'
