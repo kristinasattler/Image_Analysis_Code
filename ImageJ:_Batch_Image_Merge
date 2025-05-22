@@ -82,6 +82,7 @@ CH4_channelColor = 5;                 // Set color of channel 4 (if applicable, 
     // "false" to manually set brightness and contrast to a stationary value 
     // For no brightness/contrast adjustment:
       // 8-bit: 0-255
+      // 12-bit: 0-4095
       // 16-bit: 0-65535
 
 // AutoBrightContrast = true;
