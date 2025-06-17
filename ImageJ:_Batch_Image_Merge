@@ -43,7 +43,8 @@ setBatchMode(true);
     // If you type the file pathway manually, note frontslash vs. backslash based on your operating system
       // Mac example: parentFolder = "/Users/kristiesattler/Desktop/pathway/to/my/parentFolder";
       // Linux example: parentFolder = "C:/Users/satt25/Desktop/pathway/to/my/parentFolder";
-      // Windows example: parentFolder = "C:\Users\satt25\Desktop\pathway\to\my\parentFolder";
+      // For Windows pathways, exchange the backslashes for forwardslashes before running 
+          // Example: "C:\Users\satt25\Desktop\pathway\to\my\parentFolder"; => "C:/Users/satt25/Desktop/pathway/to/my/parentFolder";
 
 parentFolder = "/pathway/to/parentFolder";
 
