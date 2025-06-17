@@ -1,0 +1,56 @@
+// ImageJ: Batch Set Scale
+  // Written by Kristina M. Sattler
+  // ONLY edit variables where sections have "EDIT:" at the beginning of the section
+  // Do not change any of the names of the dynamic variables (text before the =), only what they mean (after the =)
+
+// Copy and paste code below into the macro window:
+
+// ====================================================================================================================
+// =============================================== Configure Variables ================================================
+// ===================== Adjust the code in this section to match the details of your experiment ======================
+// ====================================================================================================================
+  // EDIT: Set scales according to the microscope. See Microscope Scales document for scale info of some scopes
+    // Pixel aspect ratio is set to 1.0 by default
+
+ScalePixels = 1300;                  // Distance in pixels
+ScaleDistance = 435;                 // Known distance
+ScalePAR = 1.0;                      // Pixel Aspect Ratio (this will almost always be 1.0)
+ScaleUnit = "um";                    // Unit of measurement
+Magnification = "10x";               // Magnification
+Microscope = "Lepper_Zeiss"          // Microscope 
+
+// ====================================================================================================================
+  // EDIT: Set the pathway to the input folder containing images and the output folder for processed images
+inputFolder = getDirectory("/pathway/to/inputFolder");
+outputFolder = getDirectory("/pathway/to/outputFolder");
+
+// ====================================================================================================================
+  // Activate batch mode
+    // This will prevent the GUI from showing the images opening, processing, and closing. 
+      // This is especially useful for individuals with sensitivity to flashing lights. See the Log window for progress while the macro is running.
+
+setBatchMode(true);  
+
+// ====================================================================================================================
+// ============================================= Run macro to set scales ==============================================
+// ====================================================================================================================
+  // List files and open images
+list = getFileList(inputFolder);
+
+for (i = 0; i < list.length; i++) {
+    filePath = inputFolder + list[i];
+    if (endsWith(list[i], ".tif") || endsWith(list[i], ".tiff"),  || endsWith(list[i], ".TIF")) {
+        open(filePath);
+print("Open");
+
+  // Set scale 
+run("Set Scale...", "distance=" + ScalePixels + " known=" + ScaleDistance + " pixel=" + ScalePAR + " unit=" + ScaleUnit);
+print("Scale");
+
+  // Close image and move on to the next
+saveAs("Tiff", filePath);
+close(); 
+print("Save");
+        }
+    }
+print("Congrats, you’ve just saved yourself a lot of time :)");
