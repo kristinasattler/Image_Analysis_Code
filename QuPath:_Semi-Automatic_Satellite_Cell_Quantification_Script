@@ -1,7 +1,7 @@
 // QuPath: Semi-Automatic Satellite Cell Quantification Script
   // Written by Kristina M. Sattler
   // ONLY edit variables where sections have "EDIT:" or "EDIT (optional):" at the beginning of the section!
-  // See https://bit.ly/4iXBiMg for a visual protocol in Google Drive
+  // See https://docs.google.com/presentation/d/1gA2X9ZhqvoIpQ807Ep6NEBjvJFfN0_bTPR9SZahvh8w/edit?usp=sharing for a visual protocol in Google Drive
   // Pay close attention to punctuation in code! Make sure the code of each line ends in a semicolon (excluding comments) and quotes are correctly placed
   // The title of the section will be printed to the console after each step to help track any errors that may come up 
 
