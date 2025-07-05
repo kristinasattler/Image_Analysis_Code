@@ -1,0 +1,82 @@
+// QuPath:_Automatic_Batch_Cell_Detection_Quantification
+  // Written by Kristina M. Sattler
+  // See _ for a visual protocol
+  // Pay close attention to punctuation in code! Make sure the code of each line ends in a semicolon (not the comments) and quotes are correctly placed
+  // The title of the section will be printed to the console after each step to help track any errors that may come up 
+
+// ====================================================================================================================
+// Image Setup ========================================================================================================
+// ====================================================================================================================
+
+// EDIT: Set image type
+
+setImageType('FLUORESCENCE');                  // Fluorescence
+// setImageType('BRIGHTFIELD_H_DAB');          // Brightfield (H-DAB)
+// setImageType('BRIGHTFIELD_H_E');            // Brightfield (H&E)
+// setImageType('BRIGHTFIELD_OTHER');          // Brightfield (Other)
+// setImageType('OTHER');                      // Other
+
+print 'Set Image Type'
+
+// ====================================================================================================================
+// EDIT: Set channel names
+  // red, green, blue
+
+setChannelNames('DAPI'); 
+
+print 'Set Channel Names'
+
+// ====================================================================================================================
+// Create a whole-image annotation
+
+createFullImageAnnotation(true)
+
+print 'Create Annotation'
+
+// =====================
+// ====================================================================================================================
+// Cell Detection =====================================================================================================
+// ====================================================================================================================
+
+// EDIT: Detect cells via DAPI
+  // For explanations of each parameter, see: https://bit.ly/3GQ2gIk 
+
+runPlugin('qupath.imagej.detect.cells.WatershedCellDetection', 
+    """{
+        "detectionImage": "DAPI",
+        "requestedPixelSizeMicrons": 1.0,
+        "backgroundRadiusMicrons": 15.0,
+        "backgroundByReconstruction": true,
+        "medianRadiusMicrons": 0.0,
+        "sigmaMicrons": 2.0,
+        "minAreaMicrons": 10.0,
+        "maxAreaMicrons": 250.0,
+        "threshold": 50.0,
+        "watershedPostProcess": true,
+        "cellExpansionMicrons": 0.0,
+        "includeNuclei": true,
+        "smoothBoundaries": true,
+        "makeMeasurements": true
+    }"""
+);
+
+print 'Cell Detection'
+
+// =======================================================
+// Save measurements - DO NOT change anything in this script
+// =======================================================
+
+import qupath.lib.gui.tools.MeasurementExporter
+
+  // Save detection measurements (individual nuclei measurements)
+def name = getProjectEntry().getImageName() + '_Detections.txt'
+   // Define a variable to name the detections file
+def path = buildFilePath(PROJECT_BASE_DIR, 'Results/Detections')
+   // Define a variable to set the location in the project directory
+mkdirs(path)
+   // Create the directory defined by path
+path = buildFilePath(path, name)
+   // Create the .txt file in the Results/Detections directory
+saveDetectionMeasurements(path)
+  // Propagate detection measurements to the .txt file
+print 'Save Detection Measurements'
