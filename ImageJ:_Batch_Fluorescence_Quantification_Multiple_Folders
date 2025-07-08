@@ -16,70 +16,64 @@
 setBatchMode(true);  
 
 // ====================================================================================================================
-  // EDIT: Set the pathway to the input folder containing subfolders of images AND output folder where processed images to be saved
-    // Make sure the pathway is enclosed with double quotes and a semicolon at the end of the line!
+  // EDIT: Set the pathway to the parent folder containing subfolders
+    // Make sure the pathway is enclosed with double quotes and a semicolon at the end of the line
+    // If you type the file pathway manually, note frontslash vs. backslash based on your operating system
+      // Mac example: parentFolder = "/Users/kristiesattler/Desktop/pathway/to/my/parentFolder";
+      // Linux example: parentFolder = "C:/Users/satt25/Desktop/pathway/to/my/parentFolder";
+      // For Windows pathways, exchange the backslashes for forwardslashes before running 
+          // Example: "C:\Users\satt25\Desktop\pathway\to\my\parentFolder"; => "C:/Users/satt25/Desktop/pathway/to/my/parentFolder";
 
-inputFolder = getDirectory("/pathway/to/folder/of/images");
-outputFolder = getDirectory("/pathway/to/output/folder");
+inputFolder = "/Pathway/to/my/folder/";
 
 // ====================================================================================================================
   // EDIT (optional): Set the measurements 
   // See for measurement options: https://docs.google.com/document/d/1IrlFiODt2iRYPPjTQJiHGo9cTklRSA_u_fXa7nv2Uzk/edit?tab=t.xytk5djbveia 
     // Current settings: Area, mean grey value, integrated density, display label, no redirection, 3 decimal places 
 
-Measurements = "area mean integrated display redirect=None decimal=3"
+Measurements = "area mean min integrated display redirect=None decimal=2"
 
 // ====================================================================================================================
   // EDIT: Set scales according to the microscope. See Microscope Scales document for scale info of some scopes
     // Pixel aspect ratio is set to 1.0 by default
 
-ScalePixels = 1300;                  // Distance in pixels
-ScaleDistance = 435;                 // Known distance
+ScalePixels = 55;                    // Distance in pixels
+ScaleDistance = 10;                  // Known distance
 ScalePAR = 1.0;                      // Pixel Aspect Ratio (this will almost always be 1.0)
 ScaleUnit = "um";                    // Unit of measurement
-Magnification = "20x";               // Magnification
-Microscope = “Lepper_Zeiss”          // Microscope 
+Magnification = "40x";               // Magnification
+Microscope = "DHLRI_655"             // Microscope 
 
 // ====================================================================================================================
 // =========================================== Run Macro to process images ============================================
 // ===================================== DO NOT change any code in this section! ======================================
 // ====================================================================================================================
 
-  // Get a list of all subfolders
-
-subfolders = getFileList(parentFolder);
-
-// ====================================================================================================================
-  // Get a list of all files
-
-for (sf = 0; sf < subfolders.length; sf++) {
-  inputFolder = parentFolder + subfolders[sf];
-  if (!File.isDirectory(inputFolder)) continue;
-  print("Processing folder: " + inputFolder);
-
-  list = getFileList(inputFolder);
-
-// ====================================================================================================================
-  // Open images
+// List files and open images
+list = getFileList(inputFolder);
 
 for (i = 0; i < list.length; i++) {
-  filePath = inputFolder + "/" + list[i];
-  if (endsWith(list[i], ".tif") || endsWith(list[i], ".tiff")) {
-    open(filePath);
-  // Set scale 
-      run("Set Scale...", "distance=" + ScalePixels + " known=" + ScaleDistance + " pixel=" + ScalePAR + " unit=" + ScaleUnit);
-  // Set Measurements
-      run(“Set Measurements…”, Measurements);
-  // Measure images 
-      run("Measure");
-  // Close image and move on to the next
-      close(); 
+    filePath = inputFolder + list[i];
+
+    if (endsWith(list[i], ".tif") || endsWith(list[i], ".tiff") || endsWith(list[i], ".TIF")) {
+        open(filePath);
+        print("Open: " + filePath);
+
+        // Set scale 
+        run("Set Scale...", "distance=" + ScalePixels + " known=" + ScaleDistance + " pixel=" + ScalePAR + " unit=" + ScaleUnit);
+        print("Scale set");
+
+        // Set measurements
+        run("Set Measurements...", Measurements);
+        
+        // Measure image
+        run("Measure");
+
+        // Save the image
+        saveAs("Tiff", filePath);
+        print("Saved: " + filePath);
+
+        // Close the image
+        close();
     }
-  }
 }
-
-// ====================================================================================================================
-  // Save measurement results as a .csv
-saveAs("Results", outputFolder + "Results.csv");
-
-
