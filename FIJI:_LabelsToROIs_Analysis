@@ -1,0 +1,85 @@
+// FIJI: LabelsToROIs Plugin Processing Macros
+  // Written by Kristina M. Sattler
+
+// Copy and paste code below into individual macro windows:
+
+// ====================================================================================================================
+// ===================================================== Macro 1 ======================================================
+// ================================================= Set ROI groups ===================================================
+// ====================================================================================================================
+  // Set the group you want the ROI to be classified with and the color of the ROI
+
+//RoiManager.setGroup(2);            // Double
+//RoiManager.setGroup(3);            // Triple
+//RoiManager.setGroup(4);            // Delete
+RoiManager.setPosition(0);
+roiManager("Set Line Width", 0);
+Roi.setStrokeColor("blue");
+
+// ====================================================================================================================
+// ===================================================== Macro 2 ======================================================
+// ============================= Set scale and measurements, measure, and save the image ==============================
+// ====================================================================================================================
+  // EDIT: Set image parameters and save the image
+    // Scales according to the microscope
+      // See for scale info of some scopes: https://docs.google.com/spreadsheets/d/1gvoAxs_YZx7wtsSA4yOZahkqLqwiAFH7YwQDcSyx0jA/edit?usp=sharing
+      // Pixel aspect ratio is set to 1.0 by default
+    // Set the measurements 
+      // See for measurement options: https://docs.google.com/spreadsheets/d/1gvoAxs_YZx7wtsSA4yOZahkqLqwiAFH7YwQDcSyx0jA/edit?usp=sharing 
+    // Current settings: Area, perimeter, Feret's Diameter, display label, no redirection, 2 decimal places 
+    // Save as a TIFF
+
+ScalePixels = 455;                   // Distance in pixels
+ScaleDistance = 500;                 // Known distance
+ScalePAR = 1.0;                      // Pixel Aspect Ratio (this will almost always be 1.0)
+ScaleUnit = "um";                    // Unit of measurement
+Measurements = "area perimeter feret's display redirect=None decimal=2"
+
+run("Set Scale...", "distance=" + ScalePixels + " known=" + ScaleDistance + " pixel=" + ScalePAR + " unit=" + ScaleUnit);
+run("Set Measurements...", Measurements);
+roiManager("Measure");
+
+saveAs("Tiff", "/Pathway/to/my/Folder/Name_of_the_Image.tif");
+
+// ====================================================================================================================
+// ===================================================== Macro 3 ======================================================
+// ================================ Set scale and measurements, combine ROIs, measure =================================
+// ====================================================================================================================
+  // EDIT: Set image parameters, combine all ROIs, measure
+    // Scales according to the microscope
+      // See for scale info of some scopes: https://docs.google.com/spreadsheets/d/1gvoAxs_YZx7wtsSA4yOZahkqLqwiAFH7YwQDcSyx0jA/edit?usp=sharing
+      // Pixel aspect ratio is set to 1.0 by default
+    // Set the measurements 
+      // See for measurement options: https://docs.google.com/spreadsheets/d/1gvoAxs_YZx7wtsSA4yOZahkqLqwiAFH7YwQDcSyx0jA/edit?usp=sharing 
+    // Current settings: Area, Mean Grey Value, Standard Deviation, Display Label, no redirection, 2 decimal places 
+
+ScalePixels = 455;                   // Distance in pixels
+ScaleDistance = 500;                 // Known distance
+ScalePAR = 1.0;                      // Pixel Aspect Ratio (this will almost always be 1.0)
+ScaleUnit = "um";                    // Unit of measurement
+Measurements = "area mean standard min integrated display redirect=None decimal=2"
+
+run("Set Scale...", "distance=" + ScalePixels + " known=" + ScaleDistance + " pixel=" + ScalePAR + " unit=" + ScaleUnit);
+roiManager("Combine");
+roiManager("Add");
+run("Set Measurements...", Measurements);
+roiManager("Measure");
+
+// ====================================================================================================================
+// ===================================================== Macro 4 ======================================================
+// ================================================ Name combined ROI =================================================
+// ====================================================================================================================
+  // Select combined ROI, name, and assign group 10
+
+Roi.setName("Area");
+Roi.setGroup(10);
+
+// ====================================================================================================================
+// ===================================================== Macro 5 ======================================================
+// ================================ Set scale and measurements, combine ROIs, measure =================================
+// ====================================================================================================================
+  // Save image with filtered and combined ROIs as a TIFF
+
+saveAs("Tiff", "/Pathway/to/my/Folder/Name_of_the_Image.tif");
+close("*");
+
