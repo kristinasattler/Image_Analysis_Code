@@ -1,6 +1,6 @@
 // QuPath:_Automatic_Batch_Cell_Detection_Quantification
   // Written by Kristina M. Sattler
-  // See _ for a visual protocol
+  // See for a visual protocol: https://docs.google.com/presentation/d/1Tlal_Y3K-HDecmYgzUMVSsufymB49OtGYBnpgIBLFeg/edit?usp=sharing
   // Pay close attention to punctuation in code! Make sure the code of each line ends in a semicolon (not the comments) and quotes are correctly placed
   // The title of the section will be printed to the console after each step to help track any errors that may come up 
 
@@ -33,13 +33,12 @@ createFullImageAnnotation(true)
 
 print 'Create Annotation'
 
-// =====================
 // ====================================================================================================================
 // Cell Detection =====================================================================================================
 // ====================================================================================================================
 
 // EDIT: Detect cells via DAPI
-  // For explanations of each parameter, see: https://bit.ly/3GQ2gIk 
+  // For explanations of each parameter, see: https://docs.google.com/spreadsheets/d/1gvoAxs_YZx7wtsSA4yOZahkqLqwiAFH7YwQDcSyx0jA/edit?usp=sharing
 
 runPlugin('qupath.imagej.detect.cells.WatershedCellDetection', 
     """{
@@ -62,9 +61,9 @@ runPlugin('qupath.imagej.detect.cells.WatershedCellDetection',
 
 print 'Cell Detection'
 
-// =======================================================
-// Save measurements - DO NOT change anything in this script
-// =======================================================
+// ====================================================================================================================
+// Save measurements - DO NOT change anything in this script ==========================================================
+// ====================================================================================================================
 
 import qupath.lib.gui.tools.MeasurementExporter
 
