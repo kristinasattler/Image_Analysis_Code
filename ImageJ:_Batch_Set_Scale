@@ -9,7 +9,8 @@
 // =============================================== Configure Variables ================================================
 // ===================== Adjust the code in this section to match the details of your experiment ======================
 // ====================================================================================================================
-  // EDIT: Set scales according to the microscope. See Microscope Scales document for scale info of some scopes
+  // EDIT: Set scales according to the microscope
+    // See for scale info of some scopes: https://docs.google.com/spreadsheets/d/1gvoAxs_YZx7wtsSA4yOZahkqLqwiAFH7YwQDcSyx0jA/edit?usp=sharing
     // Pixel aspect ratio is set to 1.0 by default
 
 ScalePixels = 1300;                  // Distance in pixels
@@ -21,6 +22,7 @@ Microscope = "Lepper_Zeiss"          // Microscope
 
 // ====================================================================================================================
   // EDIT: Set the pathway to the input folder containing images and the output folder for processed images
+
 inputFolder = getDirectory("/pathway/to/inputFolder");
 outputFolder = getDirectory("/pathway/to/outputFolder");
 
