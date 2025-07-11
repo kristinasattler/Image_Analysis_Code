@@ -28,13 +28,14 @@ inputFolder = "/Pathway/to/my/folder/";
 
 // ====================================================================================================================
   // EDIT (optional): Set the measurements 
-  // See for measurement options: https://docs.google.com/document/d/1IrlFiODt2iRYPPjTQJiHGo9cTklRSA_u_fXa7nv2Uzk/edit?tab=t.xytk5djbveia 
+  // See for measurement options: https://docs.google.com/spreadsheets/d/1gvoAxs_YZx7wtsSA4yOZahkqLqwiAFH7YwQDcSyx0jA/edit?usp=sharing 
     // Current settings: Area, mean grey value, integrated density, display label, no redirection, 3 decimal places 
 
 Measurements = "area mean min integrated display redirect=None decimal=2"
 
 // ====================================================================================================================
-  // EDIT: Set scales according to the microscope. See Microscope Scales document for scale info of some scopes
+  // EDIT: Set scales according to the microscope
+    // See for scale info of some scopes: https://docs.google.com/spreadsheets/d/1gvoAxs_YZx7wtsSA4yOZahkqLqwiAFH7YwQDcSyx0jA/edit?usp=sharing
     // Pixel aspect ratio is set to 1.0 by default
 
 ScalePixels = 55;                    // Distance in pixels
