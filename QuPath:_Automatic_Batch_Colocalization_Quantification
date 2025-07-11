@@ -1,6 +1,6 @@
 // QuPath:_Automatic_Batch_Colocalization_Quantification
   // Written by Kristina M. Sattler
-  // See https://bit.ly/4j2lXtM for a visual protocol
+  // See for a visual protocol: https://docs.google.com/presentation/d/1w78wd3G9iQw3oVAlK_WXv3xme6Y_Qd59Gm0M-smAcOY/edit?usp=sharing
   // Pay close attention to punctuation in code! Make sure the code of each line ends in a semicolon (not the comments) and quotes are correctly placed
   // The title of the section will be printed to the console after each step to help track any errors that may come up 
 
@@ -22,20 +22,24 @@ print 'Set Image Type'
 // EDIT: Set channel names
   // red, green, blue
 
-setChannelNames('EdU', 'Pax7', 'DAPI'); 
+setChannelNames('red', 'green', 'blue'); 
+// setChannelNames('red', 'green', 'blue', 'cyan'); 
 
 print 'Set Channel Names'
 
 // ====================================================================================================================
 // EDIT: Set brightness and contrast
   // ('Channel', minimum, maximum)
+  // remove "// " to include a fourth channel
   // For no brightness/contrast adjustment:
     // 8-bit: 0-255
-    // 16-bit: 1-65535
+    // 12-bit: 0-4095
+    // 16-bit: 0-65535
 
-setChannelDisplayRange('EdU', 2, 35);
-setChannelDisplayRange('Pax7', 41, 64);
-setChannelDisplayRange('DAPI', 20, 243);
+setChannelDisplayRange('red', 0, 255);
+setChannelDisplayRange('green', 0, 255);
+setChannelDisplayRange('blue', 0, 255);
+// setChannelDisplayRange('cyan', 0, 255);
 
 print 'Set Brightness and Contrast'
 
@@ -51,7 +55,7 @@ print 'Create Annotation'
 // ====================================================================================================================
 
 // EDIT: Detect cells via DAPI
-  // For explanations of each parameter, see: https://bit.ly/3GQ2gIk 
+  // For explanations of each parameter, see: https://docs.google.com/spreadsheets/d/1gvoAxs_YZx7wtsSA4yOZahkqLqwiAFH7YwQDcSyx0jA/edit?usp=sharing
 
 runPlugin('qupath.imagej.detect.cells.WatershedCellDetection', 
     """{
