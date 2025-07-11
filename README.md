@@ -26,10 +26,9 @@ Written by Kristina M. Sattler
       - Remove the border ROIs 
       - Filter by size to eliminate small ROIs
 - **QuPath Scripts**
-  - Image Setup
-  - Batch Cell Detection
-  - Semi-Automatic Satellite Cell Quantification
-  - Batch Colocalization Quantification - Complete
+  - Automatic Batch Cell Detection - Complete
+  - Semi-Automatic Satellite Cell Quantification - Complete
+  - Automatic Batch Colocalization Quantification - Complete
     - This script will use DAPI to:
       - Detect nuclei
       - Create ROIs around the nuclei
