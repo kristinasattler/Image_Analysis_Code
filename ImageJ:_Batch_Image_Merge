@@ -102,7 +102,8 @@ bcCH4Min = 0;                        // Set min value of channel 4 (if applicabl
 bcCH4Max = 255;                      // Set max value of channel 4 (if applicable, ignore of no CH4)
 
 // ====================================================================================================================
-  // EDIT: Set scales according to the microscope. See Microscope Scales document for scale info of some scopes
+  // EDIT: Set scales according to the microscope. 
+    // See for scale info of some scopes: https://docs.google.com/spreadsheets/d/1gvoAxs_YZx7wtsSA4yOZahkqLqwiAFH7YwQDcSyx0jA/edit?usp=sharing
     // Pixel aspect ratio is set to 1.0 by default
 
 ScalePixels = 1300;                  // Distance in pixels
