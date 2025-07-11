@@ -39,10 +39,10 @@ Written by Kristina M. Sattler
  
 ### File Organization:
 - Parent Folder = folder containing subfolders of one sample
-  - e.g. 7088.L.Scan_29-22
+  - e.g. 7088_L_Scan_29-22
 - Subfolders = group of folders in the parent folder containing images 
-  - Name the subfolders with SampleID.SampleType.#
-    - e.g. 7088.L.1 (sample 7088, left muscle, image 1)
+  - Name the subfolders with SampleID_SampleType_#
+    - e.g. 7088_L_1 (sample 7088, left muscle, image 1)
     - *Note: Keep Subfolder names very simple. These will be used to name the final output files when applicable
 - Images = images that code will be applied to
 - Oraganize files like this for:
