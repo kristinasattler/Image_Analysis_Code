@@ -1,0 +1,64 @@
+// ====================================================================================================================
+// =============================================== Configure Variables ================================================
+// ===================== Adjust the code in this section to match the details of your experiment ======================
+// ====================================================================================================================
+
+  // Activate batch mode
+    // This will prevent the GUI from showing the images opening, processing, and closing. 
+      // This is especially useful for individuals with sensitivity to flashing lights. See the Log window for progress while the macro is running.
+
+setBatchMode(true);  
+
+// ====================================================================================================================
+  // EDIT: Set the pathway to the parent folder containing subfolders
+    // Make sure the pathway is enclosed with double quotes and a semicolon at the end of the line
+    // If you type the file pathway manually, note frontslash vs. backslash based on your operating system
+      // Mac example: parentFolder = "/Users/kristiesattler/Desktop/pathway/to/my/parentFolder/";
+      // Linux example: parentFolder = "C:/Users/satt25/Desktop/pathway/to/my/parentFolder/";
+      // For Windows pathways, exchange the backslashes for forwardslashes before running 
+          // Example: "C:\Users\satt25\Desktop\pathway\to\my\parentFolder/"; => "C:/Users/satt25/Desktop/pathway/to/my/parentFolder/";
+
+inputFolder = "/Pathway/To/My/Folder/";
+
+// ====================================================================================================================
+  // EDIT: Set scales according to the microscope
+    // See for scale info of some scopes: https://docs.google.com/spreadsheets/d/1gvoAxs_YZx7wtsSA4yOZahkqLqwiAFH7YwQDcSyx0jA/edit?usp=sharing
+    // Pixel aspect ratio is set to 1.0 by default
+
+ScalePixels = 455;                    // Distance in pixels
+ScaleDistance = 500;                  // Known distance
+ScalePAR = 1.0;                       // Pixel Aspect Ratio (this will almost always be 1.0)
+ScaleUnit = "um";                     // Unit of measurement
+Magnification = "10x";                // Magnification
+Microscope = "DHLRI_EVOS"             // Microscope 
+
+// ====================================================================================================================
+// =========================================== Run Macro to process images ============================================
+// ===================================== DO NOT change any code in this section! ======================================
+// ====================================================================================================================
+
+// List files and open images
+list = getFileList(inputFolder);
+
+for (i = 0; i < list.length; i++) {
+    filePath = inputFolder + list[i];
+
+    if (endsWith(list[i], ".tif") || endsWith(list[i], ".tiff") || endsWith(list[i], ".TIF")) {
+        open(filePath);
+        print("Open: " + filePath);
+
+        // Set scale 
+        run("Set Scale...", "distance=" + ScalePixels + " known=" + ScaleDistance + " pixel=" + ScalePAR + " unit=" + ScaleUnit);
+        print("Scale set");
+
+		// Set brightness and contrast
+		setMinAndMax(65, 350);
+
+        // Save the image
+        saveAs("jpeg", filePath);
+        print("Saved: " + filePath);
+
+        // Close the image
+        close();
+    }
+}
