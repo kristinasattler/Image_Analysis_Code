@@ -4,6 +4,7 @@
   // This macro will process mask files created in Cellpose:
     // Remove the border ROIs 
     // Filter by size to eliminate small ROIs
+       // Warning: this will sometimes cause larger ROIs to merge together. Use Version 2 to avoid this problem
 
 // Copy and paste code below into the macro window:
 
