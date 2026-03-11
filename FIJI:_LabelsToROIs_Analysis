@@ -7,17 +7,43 @@
 // ===================================================== Macro 1 ======================================================
 // ================================================= Set ROI groups ===================================================
 // ====================================================================================================================
-  // Set the group you want the ROI to be classified with and the color of the ROI
+  // EDIT: Set the group you want the ROI to be classified with and the color of the ROI. Easiest to use individual macro files for each classification
 
-//RoiManager.setGroup(2);            // Double
-//RoiManager.setGroup(3);            // Triple
-//RoiManager.setGroup(4);            // Delete
+//CN-
+RoiManager.setGroup(1);
 RoiManager.setPosition(0);
-roiManager("Set Line Width", 0);
+roiManager("Set Line Width", 2);
 Roi.setStrokeColor("blue");
+
+// Double
+RoiManager.setGroup(2);
+RoiManager.setPosition(0);
+roiManager("Set Line Width", 2);
+Roi.setStrokeColor("green");
+
+// Triple
+RoiManager.setGroup(3);
+RoiManager.setPosition(0);
+roiManager("Set Line Width", 2);
+Roi.setStrokeColor("green");
+
+// Delete
+RoiManager.setGroup(4);
+RoiManager.setPosition(0);
+roiManager("Set Line Width", 2);
+Roi.setStrokeColor("red");
 
 // ====================================================================================================================
 // ===================================================== Macro 2 ======================================================
+// ================================ Set scale and measurements, combine ROIs, measure =================================
+// ====================================================================================================================
+  // EDIT: Save image with filtered and combined ROIs as a TIFF
+
+saveAs("Tiff", "/Pathway/to/my/Folder/Name_of_the_Image.tif");
+close("*");
+
+// ====================================================================================================================
+// ===================================================== Macro 3 ======================================================
 // ============================= Set scale and measurements, measure, and save the image ==============================
 // ====================================================================================================================
   // EDIT: Set image parameters and save the image
@@ -42,7 +68,7 @@ roiManager("Measure");
 saveAs("Tiff", "/Pathway/to/my/Folder/Name_of_the_Image.tif");
 
 // ====================================================================================================================
-// ===================================================== Macro 3 ======================================================
+// ===================================================== Macro 4 ======================================================
 // ================================ Set scale and measurements, combine ROIs, measure =================================
 // ====================================================================================================================
   // EDIT: Set image parameters, combine all ROIs, measure
@@ -66,20 +92,10 @@ run("Set Measurements...", Measurements);
 roiManager("Measure");
 
 // ====================================================================================================================
-// ===================================================== Macro 4 ======================================================
+// ===================================================== Macro 5 ======================================================
 // ================================================ Name combined ROI =================================================
 // ====================================================================================================================
   // Select combined ROI, name, and assign group 10
 
 Roi.setName("Area");
 Roi.setGroup(10);
-
-// ====================================================================================================================
-// ===================================================== Macro 5 ======================================================
-// ================================ Set scale and measurements, combine ROIs, measure =================================
-// ====================================================================================================================
-  // Save image with filtered and combined ROIs as a TIFF
-
-saveAs("Tiff", "/Pathway/to/my/Folder/Name_of_the_Image.tif");
-close("*");
-
