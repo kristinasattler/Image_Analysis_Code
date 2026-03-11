@@ -37,22 +37,22 @@ for (i = 0; i < list.length; i++) {
     open(inputFolder + list[i]);
 
 // ====================================================================================================================
-// Remove Border Labels
+  // Remove Border Labels
     run("Remove Border Labels", "left right top bottom");
     print("Remove Border Labels");
 
 // ====================================================================================================================
-// Connected Components Labeling
+  // Connected Components Labeling
     run("Connected Components Labeling", "connectivity=4 type=[16 bits]");
     print("Connected Components Labeling");
 
 // ====================================================================================================================
-// Label Size Filtering
+  // Label Size Filtering
     run("Label Size Filtering", "operation=Greater_Than size=100");
     print("Label Size Filtering");
 
 // ====================================================================================================================
-// Save 
+  // Save 
     originalName = list[i];
     newName = replace(originalName, ".png", "_Filtered.png");
         
