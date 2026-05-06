@@ -8,17 +8,27 @@
 // ============================================== Filter ROIs by size =================================================
 // ====================================================================================================================
   // Filter ROIs by area size
-     // Note: make sure the scale is set for the image and that "area" is selected in "Set Measurements" prior to running this macro
-     // Written by @scouser27 on image.sc
+     // Adapted from script written by @scouser27 on image.sc
 
-areaTol = 50;  // EDIT: Set this value to whatever minimum area to filter by
+AreaThreshold = 50;                  // EDIT: Set this value to whatever minimum area to filter by
+ScalePixels = 1300;                  // EDIT: Distance in pixels
+ScaleDistance = 435;                 // EDIT: Known distance
+ScalePAR = 1.0;                      // EDIT: Pixel Aspect Ratio (this will almost always be 1.0)
+ScaleUnit = "um";                    // EDIT: Unit of measurement
+Magnification = "20x";               // EDIT: Magnification
+Microscope = "Lepper_Zeiss"          // EDIT: Microscope 
+Measurements = "area mean standard modal feret's integrated display redirect=None decimal=3"             // EDIT: Set measurements
 
-setBatchMode("hide");
+run("Set Scale...", "distance=" + ScalePixels + " known=" + ScaleDistance + " pixel=" + ScalePAR + " unit=" + ScaleUnit);
+
+run("Set Measurements...", Measurements);
+
+//setBatchMode("hide");
 i=0;
 fin = roiManager("count");
 while(i<fin){
 	roiManager("select", i);
-	if(getValue("Area")<areaTol){
+	if(getValue("Area")<AreaThreshold){
 		roiManager("delete");
 		fin = fin - 1;
 	} else {
