@@ -15,7 +15,7 @@ ScalePixels = 1300;                  // EDIT: Distance in pixels
 ScaleDistance = 435;                 // EDIT: Known distance
 ScalePAR = 1.0;                      // EDIT: Pixel Aspect Ratio (this will almost always be 1.0)
 ScaleUnit = "um";                    // EDIT: Unit of measurement
-Measurements = "area mean standard modal feret's integrated display redirect=None decimal=3"             // EDIT: Set measurements
+Measurements = "area display redirect=None decimal=3"             // EDIT: Set measurements
 
 // ====================================================================================================================
   // Run macro - DO NOT change anything in this section!
