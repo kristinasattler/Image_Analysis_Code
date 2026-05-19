@@ -234,7 +234,7 @@ if (IncludeCH4) {
 outputFile += "." + CH4Tag;
 }
 if (Flatten) {
-        outputFile + = "_Merged_" + Magnification + "_" + Microscope + ".tif";
+        outputFile + = "_Merged_" + Magnification + "_" + Microscope + "_Flatten.tif";
     } else {
         outputFile + = "_Merged_" + Magnification + "_" + Microscope + "_Ch-Sep.tif";
     }
