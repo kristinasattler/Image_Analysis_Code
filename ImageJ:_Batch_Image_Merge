@@ -234,9 +234,9 @@ if (IncludeCH4) {
 outputFile += "_" + CH4Tag;
 }
 if (Flatten) {
-        outputFile + = Magnification + "_" + Microscope + "_Flatten.tif";
+        outputFile + = "_" + Magnification + "_" + Microscope + "_Flatten.tif";
     } else {
-        outputFile + = Magnification + "_" + Microscope + "_Ch-Sep.tif";
+        outputFile + = "_" + Magnification + "_" + Microscope + "_Ch-Sep.tif";
     }
 saveAs("Tiff", outputFile);
 fileName = File.getName(outputFile);
