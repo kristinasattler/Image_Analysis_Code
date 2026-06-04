@@ -226,17 +226,17 @@ print("Scale");
       // Example: 2809.L.1_DAPI.Laminin.Pax7.EdU_Merged_20x_Lepper_Zeiss_Ch-Sep.tif
 
 baseName = subfolders[sf].replace("/", "");
-outputFile = parentFolder + "/" + baseName + "." + CH1Tag + "." + CH2Tag;
+outputFile = parentFolder + "/" + baseName + "_Merged_" + CH1Tag + "_" + CH2Tag;
 if (IncludeCH3) {
-outputFile += "." + CH3Tag;
+outputFile += "_" + CH3Tag;
 }
 if (IncludeCH4) {
-outputFile += "." + CH4Tag;
+outputFile += "_" + CH4Tag;
 }
 if (Flatten) {
-        outputFile + = "_Merged_" + Magnification + "_" + Microscope + "_Flatten.tif";
+        outputFile + = Magnification + "_" + Microscope + "_Flatten.tif";
     } else {
-        outputFile + = "_Merged_" + Magnification + "_" + Microscope + "_Ch-Sep.tif";
+        outputFile + = Magnification + "_" + Microscope + "_Ch-Sep.tif";
     }
 saveAs("Tiff", outputFile);
 fileName = File.getName(outputFile);
