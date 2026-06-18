@@ -1,0 +1,91 @@
+// FIJI: QuPath .svg file processing macro
+  // Written by Kristina M. Sattler
+
+// This macro will take an open .svg file from ROIs created using the Cell Detection command in QuPath:
+  // Delete unnecessary middle channels
+  // Stack to images
+  // Fill holes and save individual binary channels
+  // Identify channels by file names
+  // Color, merge, set scale, and save composite binary image
+
+// Copy and paste code below into individual macro windows:
+
+OutputFolder = "/pathway/to/my/output/folder/";    // EDIT: Paste the pathway to the desired output folder
+sampleID = "10045_L_Stitch";                       // EDIT: Sample ID (this will be the beginning of the final file name)
+CH1Tag = "DAPI";                                   // EDIT: Unique string of characters for the first channel
+CH1_channelColor = 3;                              // EDIT: Specify the color the first channel will be when merged (current: blue)
+CH2Tag = "EdU";                                    // EDIT: Unique string of characters for the second channel
+CH2_channelColor = 1;                              // EDIT: Specify the color the second channel will be when merged (current: red)
+ScalePixels = 455;                                 // EDIT: Distance in pixels
+ScaleDistance = 500;                               // EDIT: Known distance
+ScalePAR = 1.0;                                    // EDIT: Pixel Aspect Ratio (this will almost always be 1.0)
+ScaleUnit = "um";                                  // EDIT: Unit of measurement
+Objective = "10x";                                 // EDIT: Objective used (this will be used in the final file name)
+Microscope = "DHLRI_EVOS";                         // EDIT: Microscope used (this will be used in the final file name)
+StainDate = "26-05-18";                            // EDIT: Stain date (this will be used in the final file name)
+
+// ======================================================================================================
+// Separate stack to images
+
+run("Next Slice [>]");
+run("Next Slice [>]");
+run("Delete Slice");
+run("Delete Slice");
+run("Stack to Images");
+
+// ======================================================================================================
+// Fill holes and save binary channels 
+
+list = getList("image.titles");
+for (i = 0; i < list.length; i++) {
+    title = list[i];
+    if (endsWith(title, "0001") || endsWith(title, "0002")) {
+    	selectImage(title);
+
+run("8-bit");                                                     // Convert to 8-bit
+setOption("BlackBackground", true);                               // Make binary
+run("Convert to Mask");                                           // Convert to mask
+run("Fill Holes");                                                // Fill holes
+
+if (endsWith(title, "0001")) {
+            newName = sampleID + "_" + CH2Tag;
+        } else {
+            newName = sampleID + "_" + CH1Tag;
+        }
+        saveAs("Tiff", OutputFolder + newName + "_" + Objective + "_" + Microscope + "_" + StainDate + ".tif");
+    }
+}
+
+// ======================================================================================================
+// Merge binary channels into a single image
+
+CH1_Filename = "";
+CH2_Filename = "";
+
+list = getList("image.titles");
+for (i = 0; i < list.length; i++) {
+    title = list[i];
+    
+    if (CH1Tag != "" && indexOf(title, CH1Tag) != -1) {
+        CH1_Filename = title;
+    }
+    if (CH2Tag != "" && indexOf(title, CH2Tag) != -1) {
+        CH2_Filename = title;
+    }
+}
+
+mergeCommand = "create";
+
+if (CH1_Filename != "") {
+    mergeCommand += " c" + CH1_channelColor + "=[" + CH1_Filename + "]";
+}
+if (CH2_Filename != "") {
+    mergeCommand += " c" + CH2_channelColor + "=[" + CH2_Filename + "]";
+}
+
+run("Merge Channels...", mergeCommand);
+run("Set Scale...", "distance=" + ScalePixels + " known=" + ScaleDistance + " pixel=" + ScalePAR + " unit=" + ScaleUnit);
+
+saveAs("Tiff", OutputFolder + sampleID + "_Merged_" + CH1Tag + "_" + CH2Tag + "_" + Objective + "_" + Microscope + "_" + StainDate + "_Ch-Sep.tif");
+
+close("*");
