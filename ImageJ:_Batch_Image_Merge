@@ -30,7 +30,6 @@
 // =============================================== Configure Variables ================================================
 // ===================== Adjust the code in this section to match the details of your experiment ======================
 // ====================================================================================================================
-
   // Activate batch mode
     // This will prevent the GUI from showing the images opening, processing, and closing. 
       // This is especially useful for individuals with sensitivity to flashing lights. See the Log window for progress while the macro is running.
@@ -124,7 +123,6 @@ Flatten = false;                         // Do not flatten
 // =========================================== Run Macro to process images ============================================
 // ===================================== DO NOT change any code in this section! ======================================
 // ====================================================================================================================
-
   // Get a list of all subfolders
 
 subfolders = getFileList(parentFolder);
