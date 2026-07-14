@@ -30,7 +30,7 @@ print 'Set Channel Names'
 // ====================================================================================================================
 // EDIT: Set brightness and contrast
   // ('Channel', minimum, maximum)
-  // remove "// " to include a fourth channel
+  // remove "// " to include a fourth channel or add "// " to remove a third channel
   // For no brightness/contrast adjustment:
     // 8-bit: 0-255
     // 12-bit: 0-4095
