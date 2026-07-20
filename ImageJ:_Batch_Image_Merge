@@ -47,7 +47,7 @@ setBatchMode(true);
       // For Windows pathways, exchange the backslashes for forwardslashes before running 
           // Example: "C:\Users\satt25\Desktop\pathway\to\my\parentFolder"; => "C:/Users/satt25/Desktop/pathway/to/my/parentFolder";
 
-parentFolder = "/pathway/to/parentFolder";
+parentFolder = "/pathway/to/my/parentFolder";
 StainDate = "YY-MM-DD";
 
 // ====================================================================================================================
@@ -226,9 +226,9 @@ if (IncludeCH4) {
 outputFile += "_" + CH4Tag;
 }
 if (Flatten) {
-        outputFile + = "_" + Magnification + "_" + Microscope + StainDate + "_Flatten.tif";
-    } else {
-        outputFile + = "_" + Magnification + "_" + Microscope + StainDate + "_Ch-Sep.tif";
+        outputFile + = "_" + Magnification + "_" + Microscope + "_" + StainDate + "_Flatten.tif";
+    } else {x
+        outputFile + = "_" + Magnification + "_" + Microscope + "_" + StainDate + "_Ch-Sep.tif";
     }
 saveAs("Tiff", outputFile);
 fileName = File.getName(outputFile);
