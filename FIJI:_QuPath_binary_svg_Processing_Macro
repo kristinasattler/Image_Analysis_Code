@@ -10,6 +10,10 @@
 
 // Copy and paste code below into individual macro windows:
 
+// ====================================================================================================================
+// FIJI:_QuPath_Binary_svg_Processing_Macro ============================================================================
+// ====================================================================================================================
+
 OutputFolder = "/pathway/to/my/output/folder/";    // EDIT: Paste the pathway to the desired output folder
 sampleID = "10045_L_Stitch";                       // EDIT: Sample ID (this will be the beginning of the final file name)
 CH1Tag = "DAPI";                                   // EDIT: Unique string of characters for the first channel
