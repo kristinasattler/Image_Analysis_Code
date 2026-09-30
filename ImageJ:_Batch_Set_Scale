@@ -6,8 +6,8 @@
 // Copy and paste code below into the macro window:
 
 // ====================================================================================================================
-// =============================================== Configure Variables ================================================
-// ===================== Adjust the code in this section to match the details of your experiment ======================
+// Configure Variables ================================================================================================
+// Adjust the code in this section to match the details of your experiment ============================================
 // ====================================================================================================================
   // EDIT: Set scales according to the microscope
     // See for scale info of some scopes: https://docs.google.com/spreadsheets/d/1gvoAxs_YZx7wtsSA4yOZahkqLqwiAFH7YwQDcSyx0jA/edit?usp=sharing
@@ -34,7 +34,8 @@ outputFolder = getDirectory("/pathway/to/outputFolder");
 setBatchMode(true);  
 
 // ====================================================================================================================
-// ============================================= Run macro to set scales ==============================================
+// Run macro to set scales ============================================================================================
+// DO NOT change any code in this section! ============================================================================
 // ====================================================================================================================
   // List files and open images
 list = getFileList(inputFolder);
